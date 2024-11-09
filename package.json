@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-native-community/blur": "^4.4.1",
     "@react-native-vector-icons/fontawesome": "^4.7.0-alpha.34",
     "expo": "~51.0.28",
     "expo-status-bar": "~1.12.1",
