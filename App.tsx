@@ -1,30 +1,38 @@
 // src/App.tsx
+
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import store from './src/redux/store';
-import TaskList from './src/components/TaskList';
-import Header from './src/components/Header';
-import TaskInputModal from './src/components/TaskInputModal';
+import { store, persistor } from './src/redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import TaskListScreen from './src/screens/TaskListScreen';
+import CompletedTasksScreen from './src/screens/CompletedTasksScreen';
+
+const Stack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <Header />
-        <TaskList />
-        <TaskInputModal />
-      </SafeAreaView>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="TaskList">
+            <Stack.Screen
+              name="TaskList"
+              component={TaskListScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="CompletedTasks"
+              component={CompletedTasksScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  }
-});
 
 export default App;

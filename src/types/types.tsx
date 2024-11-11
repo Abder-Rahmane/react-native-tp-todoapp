@@ -1,9 +1,13 @@
 // src/types/types.ts
 
 export interface Task {
-  id: number;
+  id: string;
   title: string;
+  description: string;
+  deadline: string;
+  priority: string;
   completed: boolean;
+  isVisible: boolean;
 }
 
 export interface TasksState {
@@ -11,6 +15,6 @@ export interface TasksState {
 }
 
 export type TaskAction =
-  | { type: 'ADD_TASK'; payload: string }
+  | { type: 'ADD_TASK'; payload: { title: string; priority: string; deadline: string } } 
   | { type: 'TOGGLE_TASK'; payload: number }
   | { type: 'DELETE_TASK'; payload: number };
